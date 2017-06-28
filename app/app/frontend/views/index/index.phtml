@@ -1,0 +1,77 @@
+<?php if (!empty($payments)): ?>
+    <div class="card-box">
+        <h4 class="m-t-0 header-title"><?= $locale->_('Payments') ?></h4>
+        <table class="table table-striped m-0">
+            <thead>
+            <tr>
+                <th><?php echo $locale->_('ID') ?></th>
+                <th><?php echo $locale->_('Payment type') ?></th>
+                <th><?php echo $locale->_('From') ?></th>
+                <th><?php echo $locale->_('To') ?></th>
+                <th><?php echo $locale->_('Amount e-money') ?></th>
+                <th><?php echo $locale->_('Amount') ?></th>
+<!--                <th>--><?php //echo $locale->_('Payment get') ?><!--</th>-->
+                <th><?php echo $locale->_('Status') ?></th>
+                <th><?php echo $locale->_('Fail description') ?></th>
+                <th><?php echo $locale->_('TX') ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($payments as $payment): ?>
+                <tr>
+                    <td><?php echo $payment->_id ?></td>
+                    <td><?php $this->view->partial('blocks/payment_system_types', ['type' => $payment->type]);?></td>
+                    <td><?php if (!empty($payment->from)) : ?>
+                            <button type="button" class="btn btn-primary"
+                                    data-container="body" title="" data-toggle="popover"
+                                    data-placement="left" data-content="<?=$payment->from?>" data-original-title="<?=$locale->_('from')?>">
+                                <?=$locale->_('Show from')?>
+                            </button>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                    <td><?php if (!empty($payment->to)) : ?>
+                            <button type="button" class="btn btn-primary"
+                                    data-container="body" title="" data-toggle="popover"
+                                    data-placement="left" data-content="<?=$payment->to?>" data-original-title="<?=$locale->_('to')?>">
+                                <?=$locale->_('Show to')?>
+                            </button>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo $payment->amount ?> <?php echo @$payment->asset ?></td>
+                    <td><?php echo $payment->cost ?></td>
+<!--                    <td>--><?php //echo $payment->get ? $payment->get : '-'?><!--</td>-->
+                    <td><?php $this->view->partial('blocks/payment_status_types', ['status' => $payment->status]);?>
+                    <td><?php if (!empty($payment->fail_description)) : ?>
+                            <button type="button" class="btn btn-danger"
+                                    data-container="body" title="" data-toggle="popover"
+                                    data-placement="left" data-content="<?=$payment->fail_description?>" data-original-title="<?=$locale->_('Fail desc')?>">
+                                <?=$locale->_('Show fail details')?>
+                            </button>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                    <td><?php if (!empty($payment->tx)) : ?>
+                            <button type="button" class="btn btn-primary"
+                                    data-container="body" title="" data-toggle="popover"
+                                    data-placement="left" data-content="<?=$payment->tx?>" data-original-title="<?=$locale->_('TX ID')?>">
+                                <?=$locale->_('Show TX ID')?>
+                            </button>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+<div class="card-box">
+    <h4 class="m-t-0 header-title"><?= $locale->_('No payments') ?></h4>
+</div>
+<?php endif; ?>

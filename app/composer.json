@@ -1,0 +1,13 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^5.2",
+        "aferrandini/phpqrcode": "1.0.1",
+        "atticlab/stellar-php-sdk": "dev-master"
+    },
+    "repositories":[
+        {
+            "type":"git",
+            "url":"https://github.com/openbankit/stellar-php.git"
+        }
+    ]
+}

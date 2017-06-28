@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  php-fpm:
+    restart: always
+    container_name: exchange-php-fpm
+    build: docker/php-fpm
+    volumes:
+      - ./app:/app
+      - ./logs/php-fpm:/logs
+    links:
+      - mongo
+
+  nginx:
+    restart: always
+    container_name: exchange-nginx
+    build: docker/nginx
+    ports:
+      - "8089:80"
+    volumes:
+      - ./app:/app
+      - ./logs/nginx:/logs
+    links:
+      - php-fpm
+
+  mongo:
+    restart: always
+    container_name: exchange-mongo
+    image: mongo:3.3
+    ports:
+      - 27018:27017
+    volumes:
+      - ./storage/mongo:/data/db
+
+  bower-builder:
+    build: docker/nodejs
+    volumes:
+      - ./app:/app

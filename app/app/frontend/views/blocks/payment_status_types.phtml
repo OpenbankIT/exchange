@@ -1,0 +1,18 @@
+<?php
+    switch ($status) {
+        case \App\Collections\Cashin::STATUS_WAITING:
+            echo '<label class="label label-info">Wait payment</label>';
+            break;
+        case \App\Collections\Cashin::STATUS_PAID:
+            echo '<label class="label label-info">Wait answer</label>';
+            break;
+        case \App\Collections\Cashin::STATUS_SUCCESS:
+            echo '<label class="label label-success">SUCCESS</label>';
+            break;
+        case \App\Collections\Cashin::STATUS_FAIL:
+            echo '<label class="label label-danger">FAIL</label>';
+            break;
+        case \App\Collections\Cashin::STATUS_PARTIAL_PAYMENT:
+            echo '<label class="label label-info">Partial payment</label>';
+            break;
+    }

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<?= Phalcon\Tag::getTitle(); ?>
+
+	<?php $this->assets->outputCss() ?>
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-84353701-2', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+<div id="spinner">
+	<div>Loading...</div>
+</div>
+<!--[if IE]>
+<div id="ie_warning">The browser you are using has security vulnerabilities and is not allowed!</div>
+<![endif]-->
+
+<div id="wrapper">
+
+	<div class="topbar">
+
+		<!-- LOGO -->
+		<div class="topbar-left">
+			<div class="text-center">
+				<a href="/" class="logo"><i class="md md-equalizer"></i> <span>SmartMoney</span> </a>
+			</div>
+		</div>
+
+		<!-- Navbar -->
+		<div class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="">
+					<div class="pull-left">
+						<button class="button-menu-mobile open-left waves-effect">
+							<i class="md md-menu"></i>
+						</button>
+						<span class="clearfix"></span>
+					</div>
+					<ul class="nav navbar-nav navbar-right pull-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-language fa-fw"></i> <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="?lang=en">
+                                    	<img src="/assets/img/flags/en.png" />
+                                    	<?= $locale->_('English') ?>
+                                    </a>
+                                    <a href="?lang=ua">
+                                    	<img src="/assets/img/flags/ua.png" />
+                                    	<?= $locale->_('Ukrainian') ?>
+                                    </a>
+                                    <a href="?lang=ru">
+                                    	<img src="/assets/img/flags/ru.png" />
+                                    	<?= $locale->_('Russian') ?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<!-- ========== Left Sidebar Start ========== -->
+	<div class="left side-menu">
+		<div class="sidebar-inner slimscrollleft">
+
+
+			<div id="sidebar-menu">
+				<ul>
+
+					<?php if (!empty($mainMenu)) : ?>
+						<?php foreach ($mainMenu as $localeKey => $item) : ?>
+							<li <?= !empty($item['subItems']) ? 'class="has_sub"' : '' ?>>
+								<a href="<?= $item['href'] ?>"
+								   class="waves-effect waves-primary <?= !empty($item['subItems']) && array_key_exists($currentPageUrl,
+									   $item['subItems']) ?
+									   'subdrop' : '' ?>">
+									<i class="<?= $item['icon'] ?>"></i> <span> <?= $locale->_($localeKey) ?> </span>
+								</a>
+
+								<?php if (!empty($item['subItems']) && count($item['subItems'])) : ?>
+									<ul class="list-unstyled" <?= !empty($item['subItems']) &&  array_key_exists($currentPageUrl, $item['subItems']) ?
+										'style="display:block"' : '' ?>
+									>
+										<?php foreach ($item['subItems'] as $hrefKey => $subItem) : ?>
+											<li <?= $hrefKey == $currentPageUrl ? 'class="active"' : '' ?>>
+												<a href="<?= $hrefKey ?>">
+													<?= $locale->_($subItem['locale']) ?>
+												</a>
+											</li>
+										<?php endforeach; ?>
+									</ul>
+								<?php endif; ?>
+
+							</li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+
+
+	<div class="content-page">
+		<!-- Start content -->
+		<div class="content">
+			<div class="container">
+				<div id="flash">
+					<?php $this->flash->output() ?>
+				</div>
+				<?php echo $this->getContent() ?>
+			</div>
+		</div>
+
+		<footer class="footer text-right">
+			© <?= date('Y') . ' ' . $copyright_tag; ?> <a href="<?php echo($copyright_link); ?>"><?php echo($copyright_name); ?></a>
+		</footer>
+
+	</div>
+</div>
+
+<?php if (!empty($js_vars)): ?>
+	<script>var conf = <?=$js_vars?>;</script>
+	<script>
+		var locale = {
+			'js_wrong_password': '<?=$locale->_('js_wrong_password')?>',
+			'js_cannot_decrypt': '<?=$locale->_('js_cannot_decrypt')?>',
+			'js_no_set_account': '<?=$locale->_('js_no_set_account')?>',
+			'js_no_set_bi_val': '<?=$locale->_('js_no_set_bi_val')?>',
+			'js_no_set_bo_val': '<?=$locale->_('js_no_set_bo_val')?>',
+			'js_no_set_values': '<?=$locale->_('js_no_set_values')?>',
+			'js_pass_to_encrypt': '<?=$locale->_('js_pass_to_encrypt')?>',
+			'js_pass_to_encrypt_em': '<?=$locale->_('js_pass_to_encrypt_em')?>',
+			'js_pass_to_repeat': '<?=$locale->_('js_pass_to_repeat')?>',
+			'js_no_pass': '<?=$locale->_('js_no_pass')?>',
+			'js_no_match': '<?=$locale->_('js_no_match')?>',
+			'js_bad_file': '<?=$locale->_('js_bad_file')?>',
+			'js_no_sign_admin': '<?=$locale->_('js_no_sign_admin')?>',
+			'js_err_read_file': '<?=$locale->_('js_err_read_file')?>',
+			'js_no_adm_key': '<?=$locale->_('js_no_adm_key')?>',
+			'js_cannot_create_agent': '<?=$locale->_('js_cannot_create_agent')?>',
+			'js_cannot_create_acc': '<?=$locale->_('js_cannot_create_acc')?>',
+			'js_inv_sign_file': '<?=$locale->_('js_inv_sign_file')?>',
+			'js_inv_op_file': '<?=$locale->_('js_inv_op_file')?>',
+			'js_ens_cor_file': '<?=$locale->_('js_ens_cor_file')?>',
+			'js_cannot_create_em_key': '<?=$locale->_('js_cannot_create_em_key')?>',
+			'js_bad_limit_value': '<?=$locale->_('js_bad_limit_value')?>',
+			'js_message': '<?=$locale->_('js_message')?>',
+			'js_ent_pass': '<?=$locale->_('js_ent_pass')?>',
+			'js_save_ok': '<?=$locale->_('js_save_ok')?>',
+			'js_error_save': '<?=$locale->_('js_error_save')?>',
+			'js_button_ok': '<?=$locale->_('js_button_ok')?>',
+			'js_button_cancel': '<?=$locale->_('js_button_cancel')?>',
+			'js_empty_password': '<?=$locale->_('js_empty_password')?>',
+		}
+
+	</script>
+<?php endif ?>
+
+<script>
+	var resizefunc = [];
+</script>
+
+<?php $this->assets->outputJs() ?>
+</body>
+</html>

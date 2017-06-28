@@ -1,0 +1,8 @@
+*.md
+.git*
+backup/*
+bin/*
+app/*
+docker/*
+node_modules
+bower_components

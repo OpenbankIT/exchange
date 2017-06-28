@@ -1,0 +1,14 @@
+<?php
+switch ($type) {
+    case \App\Collections\Cashin::TYPE_BTC:
+        echo '<label class="label label-primary">BTC</label>';
+        break;
+    case \App\Collections\Cashin::TYPE_PRIVAT24:
+        echo '<label class="label label-primary">Privat24</label>';
+        break;
+    case \App\Collections\Cashin::TYPE_WMU:
+        echo '<label class="label label-primary">Webmoney WMU</label>';
+        break;
+    default:
+        echo '<label class="label label-warning">Unknown (TYPE ID: ' . $payment->type . '</label>';
+}

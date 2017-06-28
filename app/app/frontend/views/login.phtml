@@ -1,0 +1,29 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form method="post" action="/">
+            <?php foreach ($form as $element) {
+                    echo '<p>';
+                    echo '<label for="', $element->getName(), '">', $element->getLabel(), '</label>';
+                    echo $element;
+                    echo '</p>';
+
+                    //Get any generated messages for the current element
+                    foreach ([$form->getMessagesFor($element->getName()), $element->getMessages()] as $messages) {
+                        if (count($messages)) {
+                                //Print each element
+                                echo '<div class="messages">';
+                                foreach ($messages as $message) {
+                                        echo $message;
+                                }
+                                echo '</div>';
+                        }
+                    }
+            }?>
+
+            <input type="submit" value="Send"/>
+        </form>
+    </body>
+</html>
