@@ -8,6 +8,8 @@ services:
     volumes:
       - ./app:/app
       - ./logs/php-fpm:/logs
+    env_file:
+      - ./.env
     links:
       - mongo
 
